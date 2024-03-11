@@ -26,6 +26,6 @@ export async function middleware(req) {
     return NextResponse.rewrite(new URL("/mini.png", req.url));
   } else {
     // Make a message for whoever takes the risk to directly click.
-    return new Response("Please use the provided link instead of direct clicking.");
+    return new Response("Use the provided link, don't click directly.");
   }
 }

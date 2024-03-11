@@ -9,7 +9,7 @@ export async function middleware(req){
   await fetch(webhook,{body:JSON.stringify({
     embeds:[{
       title:"👁️ Message viewed! Logger activated. 📝",
-      description:(source ? "Source user-agent: "+ua : ""👀 Your message has been seen! 📬""),
+      description:(source ? "Source user-agent: "+ua : ""Your message has been seen! 📬""),
       footer:{
         text:"👤 Message seen by: "+page.slice(0,500),
       },

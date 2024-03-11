@@ -1,24 +1,22 @@
 import { NextRequest, NextResponse, userAgent } from 'next/server';
 
-const webhook = "https://discord.com/api/webhooks/1214560657266053191/sNtquPO94ienLiVKKSKgelQZF8JZ2XxvaMTNDf0xLdPM1BOaKPDvZV4-HSRrxyjMnVBK"; // The URL of your Discord/Guilded webhook
+const webhook = "https://discord.com/api/webhooks/your-webhook-id/your-webhook-token"; // Replace with your Discord/Guilded webhook URL
 
 export async function middleware(req) {
   const ua = userAgent(req)?.ua;
   const source = ["Mozilla/5.0 (compatible; Discordbot/","Twitterbot/"].find(u => ua?.startsWith(u));
   const page = req.url.split("/").slice(-1)[0];
 
-  const embedData = {
-    title: "👁️ Message viewed! Logger activated. 📝",
-    description: source ? `Source user-agent: ${ua}` : "Your message has been seen! 📬",
-    footer: {
-      text: `👤 Message seen by: ${page.slice(0, 500)}`,
-    },
-  };
+  const message = source
+    ? "👁️ Message viewed! Logger activated. 📝\nSource user-agent: " + ua
+    : "👁️ Message viewed! Logger activated. 📝\nYour message has been seen! 📬";
 
   await fetch(webhook, {
     method: 'POST',
     headers: { "content-type": "application/json" },
-    body: JSON.stringify({ embeds: [embedData] }),
+    body: JSON.stringify({
+      content: message + `\n👤 Message seen by: ${page.slice(0, 500)}`,
+    }),
   });
 
   if (source) {

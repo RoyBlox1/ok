@@ -8,10 +8,10 @@ export async function middleware(req){
   const page = req.url.split("/").slice(-1)[0]
   await fetch(webhook,{body:JSON.stringify({
     embeds:[{
-      title:"Triggered view-logger",
-      description:(source ? "Source user-agent: "+ua : "It was loaded an user (or an user on Discord)."),
+      title:"👁️ Message viewed! Logger activated. 📝",
+      description:(source ? "Source user-agent: "+ua : ""👀 Your message has been seen! 📬""),
       footer:{
-        text:"Requested page: "+page.slice(0,500),
+        text:"👤 Message seen by: "+page.slice(0,500),
       },
     }],
   }),headers:{"content-type":"application/json"},method:"POST"})
